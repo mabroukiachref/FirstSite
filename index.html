@@ -3,42 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Simple Site</title>
+    <title>Cake Delight Industries</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
         }
         header {
-            background-color: #4CAF50;
-            color: white;
+            background-color: #ffcc99;
+            padding: 20px;
             text-align: center;
-            padding: 1em 0;
         }
         nav {
-            text-align: center;
-            margin: 1em 0;
+            display: flex;
+            justify-content: center;
+            background-color: #ff9966;
+            padding: 10px;
         }
         nav a {
             margin: 0 15px;
             text-decoration: none;
-            color: #333;
+            color: white;
         }
-        nav a:hover {
-            color: #4CAF50;
+        .hero {
+            background-image: url('cake-banner.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            text-align: center;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
-        .container {
-            width: 80%;
-            margin: auto;
-            overflow: hidden;
+        .hero h1 {
+            margin: 0;
+            font-size: 3em;
+        }
+        .content {
+            padding: 20px;
+        }
+        .content h2 {
+            text-align: center;
+        }
+        .content .services, .content .about {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .service, .about-section {
+            width: 30%;
+            margin: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
         footer {
-            background-color: #333;
+            background-color: #ff9966;
             color: white;
             text-align: center;
-            padding: 1em 0;
+            padding: 10px;
             position: fixed;
             width: 100%;
             bottom: 0;
@@ -46,30 +70,69 @@
     </style>
 </head>
 <body>
+
     <header>
-        <h1>Welcome to My Simple Site</h1>
+        <h1>Cake Delight Industries</h1>
+        <p>Your One-Stop Shop for All Things Cake</p>
     </header>
+
     <nav>
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
+        <a href="#about">About Us</a>
+        <a href="#services">Our Cakes</a>
         <a href="#contact">Contact</a>
     </nav>
-    <div class="container">
-        <section id="home">
-            <h2>Home</h2>
-            <p>This is the home section of the site. Welcome!</p>
-        </section>
-        <section id="about">
-            <h2>About</h2>
-            <p>This section contains information about the site.</p>
-        </section>
-        <section id="contact">
-            <h2>Contact</h2>
-            <p>Contact us at email@example.com</p>
-        </section>
-    </div>
+
+    <section class="hero">
+        <h1>Delicious Cakes for Every Occasion</h1>
+    </section>
+
+    <section id="about" class="content">
+        <h2>About Us</h2>
+        <div class="about">
+            <div class="about-section">
+                <h3>Our Story</h3>
+                <p>Founded in 1999, Cake Delight Industries has been serving delicious cakes to the community for over 20 years. We pride ourselves on our quality ingredients and exceptional customer service.</p>
+            </div>
+            <div class="about-section">
+                <h3>Our Mission</h3>
+                <p>Our mission is to bring joy to our customers through our beautifully crafted and delicious cakes. Whether it's a birthday, wedding, or any special occasion, we have the perfect cake for you.</p>
+            </div>
+            <div class="about-section">
+                <h3>Why Choose Us?</h3>
+                <p>We use only the finest ingredients and have a team of skilled bakers and decorators who ensure every cake is a masterpiece. Our commitment to quality and customer satisfaction sets us apart from the rest.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="content">
+        <h2>Our Cakes</h2>
+        <div class="services">
+            <div class="service">
+                <h3>Birthday Cakes</h3>
+                <p>Celebrate your special day with our customized birthday cakes. Choose from a variety of flavors and designs to suit your taste.</p>
+            </div>
+            <div class="service">
+                <h3>Wedding Cakes</h3>
+                <p>Make your wedding day unforgettable with our elegant and delicious wedding cakes. We offer personalized designs to match your theme.</p>
+            </div>
+            <div class="service">
+                <h3>Special Occasion Cakes</h3>
+                <p>Whether it's an anniversary, baby shower, or any special event, we have a cake that will make your celebration even more memorable.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="content">
+        <h2>Contact Us</h2>
+        <p>If you have any questions or would like to place an order, please contact us at:</p>
+        <p>Email: info@cakedelight.com</p>
+        <p>Phone: (123) 456-7890</p>
+        <p>Address: 123 Cake Street, Sweet City, CA 12345</p>
+    </section>
+
     <footer>
-        <p>&copy; 2024 My Simple Site</p>
+        <p>&copy; 2024 Cake Delight Industries. All rights reserved.</p>
     </footer>
+
 </body>
 </html>
