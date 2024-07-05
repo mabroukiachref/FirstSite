@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Authentication and Registration Form</title>
+    <title>Authentication Page</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,13 +12,15 @@
             align-items: center;
             height: 100vh;
             background-color: #f0f0f0;
+            margin: 0;
         }
         .auth-container {
             background-color: white;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
+            width: 300px;
+            text-align: center;
         }
         .auth-container h2 {
             margin-bottom: 20px;
@@ -28,14 +30,14 @@
             margin-bottom: 5px;
         }
         .auth-container input {
-            width: 100%;
+            width: calc(100% - 20px);
             padding: 10px;
             margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
         .auth-container button {
-            width: 100%;
+            width: calc(100% - 20px);
             padding: 10px;
             background-color: #28a745;
             border: none;
@@ -45,6 +47,16 @@
         }
         .auth-container button:hover {
             background-color: #218838;
+        }
+        .register-link {
+            margin-top: 10px;
+        }
+        .register-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .register-link a:hover {
+            text-decoration: underline;
         }
         .error-message {
             color: red;
@@ -63,40 +75,30 @@
             <button type="submit">Se Connecter</button>
         </form>
         <p id="auth-error-message" class="error-message"></p>
-    </div>
-
-    <div class="auth-container">
-        <h2>Registration</h2>
-        <form id="register-form">
-            <label for="register-email">Email:</label>
-            <input type="email" id="register-email" name="register-email" required>
-            <label for="register-password">Password:</label>
-            <input type="password" id="register-password" name="register-password" required>
-            <button type="submit">Register</button>
-        </form>
-        <p id="register-error-message" class="error-message"></p>
+        <div class="register-link">
+            <a href="register.html">Pas encore inscrit ? Créez un compte ici.</a>
+        </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-analytics.js";
 
         const firebaseConfig = {
-    apiKey: "AIzaSyDmGldX8Zmop1lGyIGzTyU_ZA07P4H1gFM",
-    authDomain: "bordure-eec24.firebaseapp.com",
-    projectId: "bordure-eec24",
-    storageBucket: "bordure-eec24.appspot.com",
-    messagingSenderId: "969712624035",
-    appId: "1:969712624035:web:ba7f66b4abd4d68a12fa16",
-    measurementId: "G-X5QSCGHDV5"
-  };
+            apiKey: "your-api-key",
+            authDomain: "your-auth-domain",
+            projectId: "your-project-id",
+            storageBucket: "your-storage-bucket",
+            messagingSenderId: "your-messaging-sender-id",
+            appId: "your-app-id",
+            measurementId: "your-measurement-id"
+        };
 
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
         const auth = getAuth(app);
 
-        // Authentication Form
         const authForm = document.getElementById('auth-form');
         const authErrorMessage = document.getElementById('auth-error-message');
 
@@ -118,29 +120,6 @@
                     console.error('Error signing in:', errorCode, errorMessage);
                     authErrorMessage.textContent = errorMessage;
                 });
-        });
-
-        // Registration Form
-        const registerForm = document.getElementById('register-form');
-        const registerErrorMessage = document.getElementById('register-error-message');
-
-        registerForm.addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const email = registerForm['register-email'].value;
-            const password = registerForm['register-password'].value;
-
-            try {
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                const user = userCredential.user;
-                console.log('User registered:', user);
-                alert('Registration successful');
-                // Redirect to another page or perform other actions after registration
-            } catch (error) {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.error('Error registering user:', errorCode, errorMessage);
-                registerErrorMessage.textContent = errorMessage;
-            }
         });
     </script>
 </body>
