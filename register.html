@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Page</title>
+    <style>
+        /* Same styling as authentication page */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        .auth-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        .auth-container h2 {
+            margin-bottom: 20px;
+        }
+        .auth-container label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .auth-container input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .auth-container button {
+            width: calc(100% - 20px);
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .auth-container button:hover {
+            background-color: #0056b3;
+        }
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <h2>Registration</h2>
+        <form id="register-form">
+            <label for="register-email">Email:</label>
+            <input type="email" id="register-email" name="register-email" required>
+            <label for="register-password">Password:</label>
+            <input type="password" id="register-password" name="register-password" required>
+            <button type="submit">Register</button>
+        </form>
+        <p id="register-error-message" class="error-message"></p>
+        <div class="register-link">
+            <a href="index.html">Already have an account? Log in here.</a>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-analytics.js";
+
+        const firebaseConfig = {
+            apiKey: "your-api-key",
+            authDomain: "your-auth-domain",
+            projectId: "your-project-id",
+            storageBucket: "your-storage-bucket",
+            messagingSenderId: "your-messaging-sender-id",
+            appId: "your-app-id",
+            measurementId: "your-measurement-id"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth(app);
+
+        const registerForm = document.getElementById('register-form');
+        const registerErrorMessage = document.getElementById('register-error-message');
+
+        registerForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const email = registerForm['register-email'].value;
+            const password = registerForm['register-password'].value;
+
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+                console.log('User registered:', user);
+                alert('Registration successful');
+                // Redirect to another page or perform other actions after registration
+            } catch (error) {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.error('Error registering user:', errorCode, errorMessage);
+                registerErrorMessage.textContent = errorMessage;
+            }
+        });
+    </script>
+</body>
+</html>
