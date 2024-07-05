@@ -72,7 +72,7 @@
 <body>
 
     <header>
-        <h1>Prime Realty</h1>
+        <h1>Prime Realty 0</h1>
         <p>Your Trusted Partner in Real Estate</p>
     </header>
 
@@ -128,6 +128,19 @@
         <p>Email: info@primerealty.com</p>
         <p>Phone: (123) 456-7890</p>
         <p>Address: 123 Realty Street, Prime City, CA 12345</p>
+
+        <!-- Form for submitting inquiries -->
+        <form action="/api/submit-inquiry" method="post">
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name" required><br><br>
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br><br>
+            <label for="phone">Phone:</label><br>
+            <input type="tel" id="phone" name="phone" required><br><br>
+            <label for="message">Message:</label><br>
+            <textarea id="message" name="message" rows="4" required></textarea><br><br>
+            <input type="submit" value="Submit">
+        </form>
     </section>
 
     <footer>
