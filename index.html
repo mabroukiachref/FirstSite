@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Authentication Form</title>
+    <title>Authentication and Registration Form</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -18,6 +18,7 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
         .auth-container h2 {
             margin-bottom: 20px;
@@ -64,6 +65,83 @@
         <p id="auth-error-message" class="error-message"></p>
     </div>
 
-    <script type="module" src="auth.js"></script>
+    <div class="auth-container">
+        <h2>Registration</h2>
+        <form id="register-form">
+            <label for="register-email">Email:</label>
+            <input type="email" id="register-email" name="register-email" required>
+            <label for="register-password">Password:</label>
+            <input type="password" id="register-password" name="register-password" required>
+            <button type="submit">Register</button>
+        </form>
+        <p id="register-error-message" class="error-message"></p>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-analytics.js";
+
+        const firebaseConfig = {
+    apiKey: "AIzaSyDmGldX8Zmop1lGyIGzTyU_ZA07P4H1gFM",
+    authDomain: "bordure-eec24.firebaseapp.com",
+    projectId: "bordure-eec24",
+    storageBucket: "bordure-eec24.appspot.com",
+    messagingSenderId: "969712624035",
+    appId: "1:969712624035:web:ba7f66b4abd4d68a12fa16",
+    measurementId: "G-X5QSCGHDV5"
+  };
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth(app);
+
+        // Authentication Form
+        const authForm = document.getElementById('auth-form');
+        const authErrorMessage = document.getElementById('auth-error-message');
+
+        authForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const email = authForm['adresse'].value;
+            const password = authForm['mot-de-passe'].value;
+
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    console.log('User signed in:', user);
+                    alert('Authentication successful');
+                    // Redirect to another page or perform other actions
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.error('Error signing in:', errorCode, errorMessage);
+                    authErrorMessage.textContent = errorMessage;
+                });
+        });
+
+        // Registration Form
+        const registerForm = document.getElementById('register-form');
+        const registerErrorMessage = document.getElementById('register-error-message');
+
+        registerForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const email = registerForm['register-email'].value;
+            const password = registerForm['register-password'].value;
+
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+                console.log('User registered:', user);
+                alert('Registration successful');
+                // Redirect to another page or perform other actions after registration
+            } catch (error) {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.error('Error registering user:', errorCode, errorMessage);
+                registerErrorMessage.textContent = errorMessage;
+            }
+        });
+    </script>
 </body>
 </html>
